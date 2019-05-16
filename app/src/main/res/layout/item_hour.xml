@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="70dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="#40474d4d"
+    android:layout_height="100dp">
+    <TextView
+        android:id="@+id/tv_hour_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        tools:text="15日16时"/>
+    <ImageView
+        android:id="@+id/img_hour_wea_icon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/qing"
+        />
+    <TextView
+        android:id="@+id/tv_hour_tem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        tools:text="20℃"/>
+</LinearLayout>
