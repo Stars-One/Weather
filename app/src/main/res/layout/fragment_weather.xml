@@ -1,195 +1,206 @@
-<ScrollView
+<LinearLayout
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     tools:context="com.wan.weather.fragment.WeatherFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbars="none"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout
-        android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
+        <ScrollView
+            android:id="@+id/sv"
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/refresh_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <!-- TODO: Update blank fragment layout -->
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp">
-
-            <TextView
-                android:id="@+id/tv_temperature"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:includeFontPadding="false"
-                android:textSize="70sp"
-                android:textStyle="bold"
-                tools:text="18℃"/>
-
-
-
-            <ImageView
-                android:id="@+id/img_weather_icon"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/qing"
-                app:layout_constraintTop_toBottomOf="@id/tv_temperature"/>
-
-            <ImageView
-                android:id="@+id/img_location_icon"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="10dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/vector_drawable_loc"
-                app:layout_constraintStart_toEndOf="@id/img_weather_icon"
-                app:layout_constraintTop_toTopOf="@id/img_weather_icon"
-                />
-
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            xmlns:android="http://schemas.android.com/apk/res/android">
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:orientation="vertical"
-                app:layout_constraintStart_toEndOf="@id/img_location_icon"
-                app:layout_constraintTop_toTopOf="@id/img_location_icon">
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_location"
-                    android:layout_width="wrap_content"
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    tools:text="雁山区"/>
+                    android:layout_marginStart="50dp">
 
-                <TextView
-                    android:id="@+id/tv_weather"
+                    <TextView
+                        android:id="@+id/tv_temperature"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:includeFontPadding="false"
+                        android:textSize="70sp"
+                        android:textStyle="bold"
+                        tools:text="18℃"/>
 
-                    android:layout_width="wrap_content"
+
+
+                    <ImageView
+                        android:id="@+id/img_weather_icon"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/qing"
+                        app:layout_constraintTop_toBottomOf="@id/tv_temperature"/>
+
+                    <ImageView
+                        android:id="@+id/img_location_icon"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="10dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/vector_drawable_loc"
+                        app:layout_constraintStart_toEndOf="@id/img_weather_icon"
+                        app:layout_constraintTop_toTopOf="@id/img_weather_icon"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toEndOf="@id/img_location_icon"
+                        app:layout_constraintTop_toTopOf="@id/img_location_icon">
+
+                        <TextView
+                            android:id="@+id/tv_location"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            tools:text="雁山区"/>
+
+                        <TextView
+                            android:id="@+id/tv_weather"
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            tools:text="多云转晴"/>
+
+                        <TextView
+                            android:id="@+id/tv_maxtem_mintem"
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            tools:text="19℃/29℃"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/wind_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintTop_toBottomOf="@id/img_weather_icon">
+                        <!--风速-->
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/vector_drawable_wind"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:textSize="16sp"
+                            android:text="风速"
+                            />
+                        <TextView
+                            android:id="@+id/tv_wind"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:textSize="16sp"
+                            tools:text="东风四级"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/temperature_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintTop_toBottomOf="@id/wind_layout">
+                        <!--湿度-->
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/vector_drawable_humidity"
+                            android:scaleType="centerCrop"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:textSize="16sp"
+                            android:text="湿度"/>
+                        <TextView
+                            android:id="@+id/tv_humidity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:textSize="16sp"
+                            tools:text="62%"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintTop_toBottomOf="@id/temperature_layout">
+                        <!--空气-->
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/vector_drawable_air"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:textSize="16sp"
+                            android:text="空气质量"/>
+                        <TextView
+                            android:id="@+id/tv_air"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:textSize="16sp"
+                            android:text="45 良"/>
+                    </LinearLayout>
+                </android.support.constraint.ConstraintLayout>
+
+                <com.cy.cyrvadapter.recyclerview.HorizontalRecyclerView
+                    android:layout_marginTop="100dp"
+                    android:id="@+id/hourRv"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    tools:text="多云转晴"/>
-
-                <TextView
-                    android:id="@+id/tv_maxtem_mintem"
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    tools:text="19℃/29℃"/>
+                    tools:listitem="@layout/item_hour"/>
+                <com.cy.cyrvadapter.recyclerview.VerticalRecyclerView
+                    android:layout_marginTop="1dp"
+                    android:id="@+id/futureRv"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    tools:listitem="@layout/item_future"/>
+                <include layout="@layout/layout_other_tips"/>
             </LinearLayout>
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
-            <LinearLayout
-                android:id="@+id/wind_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@id/img_weather_icon">
-                <!--风速-->
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/vector_drawable_wind"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:textSize="16sp"
-                    android:text="风速"
-                    />
-                <TextView
-                    android:id="@+id/tv_wind"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:textSize="16sp"
-                    tools:text="东风四级"/>
-            </LinearLayout>
+</LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/temperature_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@id/wind_layout">
-                <!--湿度-->
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:src="@drawable/vector_drawable_humidity"
-                    android:scaleType="centerCrop"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:textSize="16sp"
-                    android:text="湿度"/>
-                <TextView
-                    android:id="@+id/tv_humidity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:textSize="16sp"
-                    tools:text="62%"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@id/temperature_layout">
-                <!--空气-->
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/vector_drawable_air"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:textSize="16sp"
-                    android:text="空气质量"/>
-                <TextView
-                    android:id="@+id/tv_air"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:textSize="16sp"
-                    android:text="45 良"/>
-            </LinearLayout>
-        </android.support.constraint.ConstraintLayout>
-
-        <com.cy.cyrvadapter.recyclerview.HorizontalRecyclerView
-            android:layout_marginTop="100dp"
-            android:id="@+id/hourRv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/item_hour"/>
-        <com.cy.cyrvadapter.recyclerview.VerticalRecyclerView
-            android:layout_marginTop="1dp"
-            android:id="@+id/futureRv"
-            android:nestedScrollingEnabled="false"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            tools:listitem="@layout/item_future"/>
-        <include layout="@layout/layout_other_tips"/>
-    </LinearLayout>
-</ScrollView>

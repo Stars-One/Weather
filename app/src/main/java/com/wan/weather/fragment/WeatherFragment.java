@@ -7,10 +7,13 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +22,7 @@ import com.cy.cyrvadapter.adapter.RVAdapter;
 import com.cy.cyrvadapter.recyclerview.HorizontalRecyclerView;
 import com.cy.cyrvadapter.recyclerview.VerticalRecyclerView;
 import com.wan.weather.R;
+import com.wan.weather.activity.MainActivity;
 import com.wan.weather.bean.FutureWeather;
 import com.wan.weather.bean.HourWeather;
 import com.wan.weather.bean.JsonData;
@@ -78,18 +82,24 @@ public class WeatherFragment extends Fragment {
         public void handleMessage(Message msg) {
             if (msg.what == 1) {
                 setAllData();
+                if (mRefreshLayout.isRefreshing()) {
+                    mRefreshLayout.setRefreshing(false);
+                    Toast.makeText(context, "天气更新成功", Toast.LENGTH_SHORT).show();
+                }
             }
         }
     };
     private WeatherData weatherData;
     private JsonData jsonData;
+    private SwipeRefreshLayout mRefreshLayout;
+    private ScrollView mSv;
 
     public WeatherFragment() {
     }
 
     //TODO setArgment传送数据
     public WeatherFragment(String cityId) {
-        this.context = this.getActivity();
+
         this.cityId = cityId;
     }
 
@@ -104,7 +114,7 @@ public class WeatherFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        this.context = getActivity();
         loadData();
 
         //自动更新
@@ -113,6 +123,7 @@ public class WeatherFragment extends Fragment {
             @Override
             public void run() {
                 getWeatherData();
+
             }
         }).start();
     }
@@ -169,12 +180,13 @@ public class WeatherFragment extends Fragment {
                 jsonData = new JsonData(result);
                 //保存数据到数据库
                 jsonData.save();
-               //获取天气数据，并转换成所需要的实体类
+                //获取天气数据，并转换成所需要的实体类
                 weatherData = HttpUtil.parseJSONWithGSON(result);
                 extractDataFromJson();
                 //异步更新UI
                 Message message = new Message();
                 message.what = 1;
+
                 myhandler.sendMessage(message);
 
             }
@@ -226,6 +238,19 @@ public class WeatherFragment extends Fragment {
         mTvUcTip = (TextView) view.findViewById(R.id.tv_ucTip);
         mTvCarLevel = (TextView) view.findViewById(R.id.tv_carLevel);
         mTvCarTip = (TextView) view.findViewById(R.id.tv_carTip);
+
+
+        mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh_layout);
+
+        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                getWeatherData();
+            }
+        });
+
+        mSv = (ScrollView) view.findViewById(R.id.sv);
     }
 
     private void setOtherData() {
@@ -238,6 +263,7 @@ public class WeatherFragment extends Fragment {
         mTvCarTip.setText(otherMessage.getCarTip());
         mTvCarLevel.setText(otherMessage.getCarLevel());
     }
+
     private void setHourData() {
         mHourRv.setAdapter(new RVAdapter<HourWeather>(hourWeatherList) {
             @Override
