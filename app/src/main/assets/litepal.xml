@@ -9,7 +9,7 @@
     	<dbname value="demo" />
     -->
     <dbname value="weather" />
-    <version value="2" />
+    <version value="3" />
 
     <!--
     	Define your models in the list with mapping tag, LitePal will
@@ -22,6 +22,6 @@
     	<st>
     -->
     <list>
-        <mapping class="com.wan.weather.bean.WeatherData" />
+        <mapping class="com.wan.weather.bean.JsonData" />
     </list>
 </litepal>

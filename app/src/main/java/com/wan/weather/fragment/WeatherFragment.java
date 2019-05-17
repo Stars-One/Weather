@@ -21,6 +21,7 @@ import com.cy.cyrvadapter.recyclerview.VerticalRecyclerView;
 import com.wan.weather.R;
 import com.wan.weather.bean.FutureWeather;
 import com.wan.weather.bean.HourWeather;
+import com.wan.weather.bean.JsonData;
 import com.wan.weather.bean.OtherMessage;
 import com.wan.weather.bean.Weather;
 import com.wan.weather.bean.WeatherData;
@@ -81,6 +82,7 @@ public class WeatherFragment extends Fragment {
         }
     };
     private WeatherData weatherData;
+    private JsonData jsonData;
 
     public WeatherFragment() {
     }
@@ -125,15 +127,17 @@ public class WeatherFragment extends Fragment {
 
         LitePal.getDatabase();//初始化数据库
 
-        if (LitePal.isExist(WeatherData.class)) {
+        if (LitePal.isExist(JsonData.class)) {
             //从数据库中读取数据
-            weatherData = LitePal.findFirst(WeatherData.class);
+            jsonData = LitePal.findFirst(JsonData.class);
+            weatherData = HttpUtil.parseJSONWithGSON(jsonData.getJsonData());
             setAllData();
-        } else {
-
         }
     }
 
+    /**
+     * 设置全部天气数据
+     */
     private void setAllData() {
         extractDataFromJson();
         setWeather();
@@ -158,18 +162,17 @@ public class WeatherFragment extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String result = response.body().string();
-                if (weatherData != null) {
-                    //不为空，说明数据库中有数据
-                    //需要删除
-                    weatherData.delete();
-                    weatherData = null;
+                if (jsonData != null) {
+                    jsonData.delete();
+                    jsonData = null;
                 }
-                weatherData = HttpUtil.parseJSONWithGSON(result);
+                jsonData = new JsonData(result);
                 //保存数据到数据库
-                weatherData.save();
-
+                jsonData.save();
+               //获取天气数据，并转换成所需要的实体类
+                weatherData = HttpUtil.parseJSONWithGSON(result);
                 extractDataFromJson();
-                //异步更新
+                //异步更新UI
                 Message message = new Message();
                 message.what = 1;
                 myhandler.sendMessage(message);
