@@ -27,6 +27,8 @@ import com.wan.weather.bean.WeatherData;
 import com.wan.weather.utils.DataUtil;
 import com.wan.weather.utils.HttpUtil;
 
+import org.litepal.LitePal;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -74,18 +76,16 @@ public class WeatherFragment extends Fragment {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 1) {
-                setWeather();
-                setHourData();
-                setFutureData();
-                setOtherData();
+                setAllData();
             }
         }
     };
+    private WeatherData weatherData;
 
     public WeatherFragment() {
-        this.context = this.getActivity();
     }
 
+    //TODO setArgment传送数据
     public WeatherFragment(String cityId) {
         this.context = this.getActivity();
         this.cityId = cityId;
@@ -94,7 +94,6 @@ public class WeatherFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_weather, container, false);
         initView(view);
         return view;
@@ -103,6 +102,10 @@ public class WeatherFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        loadData();
+
+        //自动更新
         //开启子进程，获取网络数据
         new Thread(new Runnable() {
             @Override
@@ -112,25 +115,60 @@ public class WeatherFragment extends Fragment {
         }).start();
     }
 
+    /**
+     * 加载数据库中的数据
+     */
+    private void loadData() {
+
+        //判断数据库是否存在
+        //存在读取数据库内容
+
+        LitePal.getDatabase();//初始化数据库
+
+        if (LitePal.isExist(WeatherData.class)) {
+            //从数据库中读取数据
+            weatherData = LitePal.findFirst(WeatherData.class);
+            setAllData();
+        } else {
+
+        }
+    }
+
+    private void setAllData() {
+        extractDataFromJson();
+        setWeather();
+        setHourData();
+        setFutureData();
+        setOtherData();
+    }
+
+
+    /**
+     * 获取网络的返回的天气数据
+     */
     private void getWeatherData() {
 
         String address = "https://www.tianqiapi.com/api/?version=v1&cityid=";
         HttpUtil.sendOkHttpRequest(address + cityId, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Toast.makeText(context, "网络错误，请稍后重试", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "网络错误，请稍后手动更新", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String result = response.body().string();
-                WeatherData weatherData = HttpUtil.parseJSONWithGSON(result);
-                DataUtil dataUtil = new DataUtil(weatherData);
+                if (weatherData != null) {
+                    //不为空，说明数据库中有数据
+                    //需要删除
+                    weatherData.delete();
+                    weatherData = null;
+                }
+                weatherData = HttpUtil.parseJSONWithGSON(result);
+                //保存数据到数据库
+                weatherData.save();
 
-                weather = dataUtil.getWeather();
-                hourWeatherList = dataUtil.getHourWeatherList();
-                futureWeatherList = dataUtil.getFutureWeatherList();
-                otherMessage = dataUtil.getOtherMessage();
+                extractDataFromJson();
                 //异步更新
                 Message message = new Message();
                 message.what = 1;
@@ -140,10 +178,22 @@ public class WeatherFragment extends Fragment {
         });
     }
 
+    /**
+     * 提取所有的天气数据
+     */
+    private void extractDataFromJson() {
+        DataUtil dataUtil = new DataUtil(weatherData);
+
+        weather = dataUtil.getWeather();
+        hourWeatherList = dataUtil.getHourWeatherList();
+        futureWeatherList = dataUtil.getFutureWeatherList();
+        otherMessage = dataUtil.getOtherMessage();
+    }
+
     private void setWeather() {
         mTvTemperature.setText(weather.getTem());
         mTvLocation.setText(weather.getCityName());
-        Glide.with(this).load(R.drawable.bingbao).into(mImgWeatherIcon);
+        Glide.with(this).load(weather.getWeaImgId()).into(mImgWeatherIcon);
         mTvWeather.setText(weather.getWea());
         mTvMaxtemMintem.setText(weather.getMaxTemAndMinTem());
         mTvWind.setText(weather.getWinSpeed());

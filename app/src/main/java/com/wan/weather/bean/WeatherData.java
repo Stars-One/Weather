@@ -1,5 +1,7 @@
 package com.wan.weather.bean;
 
+import org.litepal.crud.LitePalSupport;
+
 import java.util.List;
 
 /**
@@ -7,7 +9,7 @@ import java.util.List;
  * @date Create in  2019/5/15 0015 14:09
  * @description
  */
-public class WeatherData {
+public class WeatherData extends LitePalSupport{
     /**
      * cityid : 101110101
      * update_time : 2019-05-15 05:30:00

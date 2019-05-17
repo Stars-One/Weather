@@ -8,7 +8,7 @@
 
     <!--穿衣指数-->
     <LinearLayout
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:layout_width="380dp"
         android:layout_height="120dp"
         android:background="@drawable/b1"
@@ -19,14 +19,14 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="15dp"
             android:text="穿衣指数"/>
         <TextView
             android:id="@+id/tv_clothesLevel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="15dp"
             android:textSize="24sp"
             tool:text="弱"/>
         <TextView
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="14sp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="15dp"
             android:textColor="@color/colorBlack"
             tool:text="辐射较弱，辐射较弱，辐射较弱，辐射较弱，辐射较弱"/>
     </LinearLayout>
@@ -43,7 +43,7 @@
 
     <!--空气指数-->
     <LinearLayout
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:layout_width="380dp"
         android:layout_height="120dp"
         android:background="@drawable/b2"
@@ -54,14 +54,14 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="15dp"
             android:text="空气指数"/>
         <TextView
             android:id="@+id/tv_airLevel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="15dp"
             android:textSize="24sp"
             tool:text="弱"/>
         <TextView
@@ -70,14 +70,14 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="14sp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="15dp"
             android:textColor="@color/colorBlack"
             tool:text="辐射较弱，辐射较弱，辐射较弱，辐射较弱，辐射较弱"/>
     </LinearLayout>
 
     <!--紫外线指数-->
     <LinearLayout
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:layout_width="380dp"
         android:layout_height="120dp"
         android:background="@drawable/b3"
@@ -88,14 +88,14 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="15dp"
             android:text="紫外线指数"/>
         <TextView
             android:id="@+id/tv_uvLevel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="15dp"
             android:textSize="24sp"
             tool:text="弱"/>
         <TextView
@@ -105,32 +105,32 @@
             android:textStyle="bold"
             android:textSize="14sp"
             android:textColor="@color/colorBlack"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="15dp"
             tool:text="辐射较弱，辐射较弱，辐射较弱，辐射较弱，辐射较弱"/>
     </LinearLayout>
 
     <!--洗车指数-->
     <LinearLayout
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:layout_width="380dp"
         android:layout_height="120dp"
         android:background="@drawable/b4"
         android:orientation="vertical"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="15dp"
         >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="15dp"
             android:text="洗车指数"/>
         <TextView
             android:id="@+id/tv_carLevel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="15dp"
             android:textSize="24sp"
             tool:text="弱"/>
         <TextView
@@ -140,7 +140,7 @@
             android:textStyle="bold"
             android:textSize="14sp"
             android:textColor="@color/colorBlack"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="15dp"
             tool:text="辐射较弱，辐射较弱，辐射较弱，辐射较弱，辐射较弱"/>
     </LinearLayout>
 
