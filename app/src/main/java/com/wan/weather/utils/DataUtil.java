@@ -22,9 +22,46 @@ import java.util.Map;
 public class DataUtil {
     private WeatherData weatherData;
     private static Map<String, Integer> imgId = new HashMap<>();
+    private static Map<String, Integer> bgId = new HashMap<>();
+
+    public DataUtil() {
+        bgId.put("1",R.drawable.bg1);
+        bgId.put("2",R.drawable.bg2);
+        bgId.put("3",R.drawable.bg3);
+        bgId.put("4",R.drawable.bg4);
+        bgId.put("5",R.drawable.bg5);
+        bgId.put("6",R.drawable.bg6);
+        bgId.put("7",R.drawable.bg7);
+        bgId.put("8",R.drawable.bg8);
+        bgId.put("9",R.drawable.bg9);
+        bgId.put("10",R.drawable.bg10);
+        bgId.put("11",R.drawable.bg11);
+        bgId.put("12",R.drawable.bg12);
+        bgId.put("13",R.drawable.bg13);
+        bgId.put("14",R.drawable.bg14);
+        bgId.put("15",R.drawable.bg15);
+        bgId.put("16",R.drawable.bg16);
+        bgId.put("17",R.drawable.bg17);
+        bgId.put("18",R.drawable.bg18);
+        bgId.put("19",R.drawable.bg19);
+        bgId.put("20",R.drawable.bg20);
+        bgId.put("21",R.drawable.bg21);
+        bgId.put("22",R.drawable.bg22);
+        bgId.put("23",R.drawable.bg23);
+        bgId.put("24",R.drawable.bg24);
+        bgId.put("25",R.drawable.bg25);
+        bgId.put("26",R.drawable.bg26);
+        bgId.put("27",R.drawable.bg27);
+        bgId.put("28",R.drawable.bg28);
+        bgId.put("29",R.drawable.bg28);
+        bgId.put("30",R.drawable.bg30);
+        bgId.put("31",R.drawable.bg31);
+        bgId.put("32",R.drawable.bg32);
+    }
 
     public DataUtil(WeatherData weatherData) {
         this.weatherData = weatherData;
+
         imgId.put("bingbao", R.drawable.bingbao);
         imgId.put("lei", R.drawable.lei);
         imgId.put("qing", R.drawable.qing);
@@ -34,8 +71,22 @@ public class DataUtil {
         imgId.put("yin", R.drawable.yin);
         imgId.put("yu", R.drawable.yu);
         imgId.put("yun", R.drawable.yun);
+
+
+
+
     }
 
+    /**
+     * 获得随机的背景图片资源id
+     * @return
+     */
+    public  int getBgId() {
+        //[1,33)
+        int num  = (int) (Math.random() * 32 + 1);
+        Log.d("---图片id", "getBgId: "+num);
+        return bgId.get(num+"");
+    }
     /**天气数据提取
      * WeatherData -> Weather
      * @return

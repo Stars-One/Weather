@@ -7,11 +7,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 
+import com.wan.movecirclepoint.CirclePoint;
 import com.wan.weather.BaseActivity;
 import com.wan.weather.R;
 import com.wan.weather.adapter.FragmentAdapter;
 import com.wan.weather.fragment.WeatherFragment;
+import com.wan.weather.utils.DataUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,15 +27,37 @@ public class MainActivity extends BaseActivity {
 
     private Toolbar mToolbar;
     private ViewPager mViewpager;
-    private List<WeatherFragment> weatherFragments=new ArrayList<>();
+    private List<WeatherFragment> weatherFragments = new ArrayList<>();
+    private CirclePoint mCirclePoint;
+    private LinearLayout mMainLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initView();
 
         setToolbarTransparent();
-        weatherFragments.add(new WeatherFragment("101300518"));
-        mViewpager.setAdapter(new FragmentAdapter(getSupportFragmentManager(),weatherFragments));
+        weatherFragments.add(new WeatherFragment("101300518"));//雁山
+        weatherFragments.add(new WeatherFragment("101300501"));//桂林
+        weatherFragments.add(new WeatherFragment("101300101"));//南宁
+        mViewpager.setAdapter(new FragmentAdapter(getSupportFragmentManager(), weatherFragments));
+        mViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                mCirclePoint.setonPageScrolled(position, positionOffset, positionOffsetPixels);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
 
@@ -57,12 +82,17 @@ public class MainActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.show_location:
+                startActivity(MapActivity.class);
+
                 break;
             case R.id.about:
+                startActivity(AboutActivity.class);
                 break;
             case R.id.setting:
+                startActivity(SettingActivity.class);
                 break;
             case R.id.city_manage:
+                startActivity(CityManageActivity.class);
                 break;
             default:
                 break;
@@ -81,6 +111,11 @@ public class MainActivity extends BaseActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         mViewpager = (ViewPager) findViewById(R.id.viewpager);
+        mCirclePoint = (CirclePoint) findViewById(R.id.circlePoint);
+        mMainLayout = (LinearLayout) findViewById(R.id.main_layout);
+
+        mMainLayout.setBackgroundResource(new DataUtil().getBgId());
+
     }
 
     /*private void playVideo() {

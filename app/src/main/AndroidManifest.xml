@@ -13,12 +13,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity" android:theme="@style/myTheme">
+        <activity
+            android:name=".activity.MainActivity"
+            android:theme="@style/myTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".activity.SettingActivity" android:label="设置">
+        </activity>
+        <activity android:name=".activity.AboutActivity" android:label="关于">
+        </activity>
+        <activity android:name=".activity.MapActivity" android:label="地图">
+        </activity>
+        <activity android:name=".activity.CityManageActivity" android:label="城市管理">
         </activity>
     </application>
 
