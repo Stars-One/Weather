@@ -1,5 +1,6 @@
 package com.wan.weather.activity;
 
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -113,8 +114,13 @@ public class MainActivity extends BaseActivity {
         mViewpager = (ViewPager) findViewById(R.id.viewpager);
         mCirclePoint = (CirclePoint) findViewById(R.id.circlePoint);
         mMainLayout = (LinearLayout) findViewById(R.id.main_layout);
+        SharedPreferences preferences = getSharedPreferences("data", MODE_PRIVATE);//获得SharedPreferences的对象
 
-        mMainLayout.setBackgroundResource(new DataUtil().getBgId());
+        //括号里的判断是去找switchFlag这个对应的数值，若是找不到，则是返回false，找到了的话就是我们上面定义的true，就会执行其中的语句
+        if (preferences.getBoolean("switchFlag", false)) {
+            mMainLayout.setBackgroundResource(new DataUtil().getBgId());
+        }
+
 
     }
 
