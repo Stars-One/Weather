@@ -63,6 +63,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             case R.id.setting_img:
                 break;
             case R.id.setting_random_img:
+                mSwitchPicture.setChecked(!mSwitchPicture.isChecked());
                 break;
             case R.id.setting_time_alarm:
                 break;

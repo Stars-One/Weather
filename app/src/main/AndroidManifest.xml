@@ -5,29 +5,28 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
-    <!--获取设备网络状态，禁用后无法获取网络状态-->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!--网络权限，当禁用后，无法进行检索等相关业务-->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!--读取设备硬件信息，统计数据-->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!--读取系统信息，包含系统版本等信息，用作统计-->
-    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
-    <!--获取设备的网络状态，鉴权所需网络代理-->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!--允许sd卡写权限，需写入地图数据，禁用后无法显示地图-->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!--这个权限用于进行网络定位-->
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <!--这个权限用于访问GPS定位-->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <!--获取统计数据-->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <!--使用步行AR导航，配置Camera权限-->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <!--程序在手机屏幕关闭后后台进程仍然运行-->
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-
+    <!-- 获取设备网络状态，禁用后无法获取网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!-- 网络权限，当禁用后，无法进行检索等相关业务 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- 读取设备硬件信息，统计数据 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <!-- 读取系统信息，包含系统版本等信息，用作统计 -->
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/>
+    <!-- 获取设备的网络状态，鉴权所需网络代理 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!-- 允许sd卡写权限，需写入地图数据，禁用后无法显示地图 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!-- 这个权限用于进行网络定位 -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <!-- 这个权限用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!-- 获取统计数据 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!-- 使用步行AR导航，配置Camera权限 -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <!-- 程序在手机屏幕关闭后后台进程仍然运行 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
         android:name="org.litepal.LitePalApplication"
@@ -39,7 +38,8 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="CayEKRKcysT0rGQoQzL62UsGv96vFjty" />
+            android:value="CayEKRKcysT0rGQoQzL62UsGv96vFjty"/>
+
         <activity
             android:name=".activity.MainActivity"
             android:theme="@style/myTheme">
@@ -49,17 +49,37 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SettingActivity" android:label="设置">
+        <activity
+            android:name=".activity.SettingActivity"
+            android:label="设置">
         </activity>
-        <activity android:name=".activity.AboutActivity" android:label="关于">
+        <activity
+            android:name=".activity.AboutActivity"
+            android:label="关于">
         </activity>
-        <activity android:name=".activity.MapActivity" android:label="地图">
+        <activity
+            android:name=".activity.MapActivity"
+            android:label="地图">
         </activity>
-        <activity android:name=".activity.CityManageActivity" android:label="城市管理">
+        <activity
+            android:name=".activity.CityManageActivity"
+            android:label="城市管理">
         </activity>
-        <service android:name="com.baidu.location.f"
-                 android:enabled="true"
-                 android:process=":remote"/>
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"/>
+
+        <receiver android:name=".WeatherWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/weather_widget_info"/>
+        </receiver>
     </application>
 
 </manifest>

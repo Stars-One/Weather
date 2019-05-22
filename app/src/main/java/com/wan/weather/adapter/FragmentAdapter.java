@@ -32,4 +32,8 @@ public class FragmentAdapter extends FragmentPagerAdapter{
     public int getCount() {
         return fragments.size();
     }
+
+    public void changeFragemnt(int posision) {
+        fm.beginTransaction().show(fragments.get(posision)).commitAllowingStateLoss();
+    }
 }

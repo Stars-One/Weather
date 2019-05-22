@@ -1,8 +1,11 @@
 package com.wan.weather.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -31,7 +34,17 @@ public class MainActivity extends BaseActivity {
     private List<WeatherFragment> weatherFragments = new ArrayList<>();
     private CirclePoint mCirclePoint;
     private LinearLayout mMainLayout;
+    private FragmentAdapter fragmentAdapter;
 
+    private Handler myhander = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 1) {
+                int cityId = msg.arg1;
+                fragmentAdapter.changeFragemnt(cityId);
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,10 +52,12 @@ public class MainActivity extends BaseActivity {
         initView();
 
         setToolbarTransparent();
-        weatherFragments.add(new WeatherFragment("101300518"));//雁山
+//        weatherFragments.add(new WeatherFragment("101300518"));//雁山
         weatherFragments.add(new WeatherFragment("101300501"));//桂林
+        weatherFragments.add(new WeatherFragment("101300301"));//桂林
         weatherFragments.add(new WeatherFragment("101300101"));//南宁
-        mViewpager.setAdapter(new FragmentAdapter(getSupportFragmentManager(), weatherFragments));
+        fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(), weatherFragments);
+        mViewpager.setAdapter(fragmentAdapter);
         mViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -61,6 +76,16 @@ public class MainActivity extends BaseActivity {
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        int cityId = data.getExtras().getInt("cityId");
+        if (requestCode == 1) {
+            Message message = new Message();
+            message.what=1;
+            message.arg1 = cityId;
+            myhander.sendMessage(message);
+        }
+    }
 
     /**
      * 设置toolabar透明色
@@ -93,7 +118,8 @@ public class MainActivity extends BaseActivity {
                 startActivity(SettingActivity.class);
                 break;
             case R.id.city_manage:
-                startActivity(CityManageActivity.class);
+                Intent intent = new Intent(this, CityManageActivity.class);
+                startActivityForResult(intent,1);
                 break;
             default:
                 break;

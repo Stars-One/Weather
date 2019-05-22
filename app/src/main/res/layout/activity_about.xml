@@ -22,6 +22,12 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="16sp"
+            android:text="艺兴天气v1.0"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="16sp"
             android:text="开发者：万兴兴"/>
         <TextView
             android:layout_width="wrap_content"
