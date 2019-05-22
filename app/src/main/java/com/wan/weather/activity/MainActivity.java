@@ -1,11 +1,11 @@
 package com.wan.weather.activity;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -36,15 +36,7 @@ public class MainActivity extends BaseActivity {
     private LinearLayout mMainLayout;
     private FragmentAdapter fragmentAdapter;
 
-    private Handler myhander = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == 1) {
-                int cityId = msg.arg1;
-                fragmentAdapter.changeFragemnt(cityId);
-            }
-        }
-    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,16 +68,7 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        int cityId = data.getExtras().getInt("cityId");
-        if (requestCode == 1) {
-            Message message = new Message();
-            message.what=1;
-            message.arg1 = cityId;
-            myhander.sendMessage(message);
-        }
-    }
+
 
     /**
      * 设置toolabar透明色
@@ -118,8 +101,7 @@ public class MainActivity extends BaseActivity {
                 startActivity(SettingActivity.class);
                 break;
             case R.id.city_manage:
-                Intent intent = new Intent(this, CityManageActivity.class);
-                startActivityForResult(intent,1);
+                startActivity(CityManageActivity.class);
                 break;
             default:
                 break;
@@ -143,7 +125,12 @@ public class MainActivity extends BaseActivity {
         SharedPreferences preferences = getSharedPreferences("data", MODE_PRIVATE);//获得SharedPreferences的对象
 
         //括号里的判断是去找switchFlag这个对应的数值，若是找不到，则是返回false，找到了的话就是我们上面定义的true，就会执行其中的语句
-        if (preferences.getBoolean("switchFlag", false)) {
+        String imgPath = preferences.getString("imgPath", "");
+        if (!"".equals(imgPath)) {
+            Bitmap bitmap = BitmapFactory.decodeFile(imgPath);
+            mMainLayout.setBackground(new BitmapDrawable(bitmap));
+//            mMainLayout.setBackgroundResource(new DataUtil().getBgId());
+        }else if (preferences.getBoolean("switchFlag", false)) {
             mMainLayout.setBackgroundResource(new DataUtil().getBgId());
         }
 
